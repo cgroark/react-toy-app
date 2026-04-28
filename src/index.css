@@ -49,6 +49,20 @@ button {
 button:hover {
   border-color: #646cff;
 }
+.quote-section {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quote-section li {
+  max-width: 250px;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 15px;
+}
 
 
 @media (prefers-color-scheme: light) {
