@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: baseline;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -61,6 +61,14 @@ button:hover {
   max-width: 250px;
   padding: 10px;
   border: 1px solid white;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.quote-section li.liked {
+  max-width: 250px;
+  padding: 10px;
+  border: 1px solid red;
   border-radius: 15px;
 }
 
