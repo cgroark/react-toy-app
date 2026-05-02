@@ -1,12 +1,13 @@
-export interface Quote {
-  id: number,
-  author: string,
-  quote: string,
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
 }
-
-export interface QuoteJSONResponse {
-  total: number,
-  limit: number,
-  skip: number,
-  quotes: Quote[]
+export interface JSONResponse {
+  skip: number;
+  total: number;
+  limit: number;
+  products: Product[]
 }
