@@ -18,6 +18,32 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.quote-section {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quote-section li div {
+  max-width: 250px;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 15px;
+}
+
+.quote-section li div.liked {
+  border-color: red;
+}
+
+.quote-section li img {
+  width: 100%;
+  padding: 10px;
+}
+
+
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
