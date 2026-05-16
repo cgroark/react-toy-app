@@ -16,6 +16,7 @@ export interface Product extends ProductSummary {
   description: string;
   price: number;
   thumbnail: string;
+  category: string;
 };
 
 interface JSONResponse {
@@ -28,6 +29,11 @@ interface JSONResponse {
 interface SortOption {
   value: string,
   label: string,
+}
+
+const productCategories: Record<string, string>  = {
+  groceries: "Groceries",
+  furniture: "Furniture"
 }
 
 
@@ -148,6 +154,20 @@ export default function App() {
 
   },[products,sortBy]);
 
+  const groupedProducts = products.reduce<Record<string, Product[]>>((acc, product) => {
+    const category = productCategories[product.category];
+
+    if(!category) return acc;
+    if(!acc[category]) {
+      acc[category] = []
+    }
+
+    acc[category].push(product);
+    console.log('acc', acc)
+    return acc;
+  }, {})
+
+
   const page = Math.floor(skip / limit) + 1;
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
@@ -165,6 +185,9 @@ export default function App() {
   };
 
   const handleLike = (id: number) => {
+    //React state should be treated as immutable.
+    //If you mutated the existing Set directly:
+    //React may not re-render because the reference didn't change.
     const newSet = new Set(likes);
     if(newSet.has(id)) {
       newSet.delete(id)
@@ -202,13 +225,28 @@ export default function App() {
             <ul className="quote-section">
               {sortedProducts.map((each) =>
               <>
-                <ProductItem product={each} handleClick={(id) => handleLike(id)} likes={likes} />
+                <ProductItem product={each} handleClick={handleLike} likes={likes} />
               </>
               )}
             </ul>
           </div>
         )
       }
+      {products.length > 0 && (
+        <>
+          <h2>OK HERE</h2>
+          <ul>
+            {Object.entries(groupedProducts).map(([categoryName, products]) =>
+              <div key={categoryName}>
+                <h2>{categoryName}</h2>
+                {products.map((each) =>
+                   <ProductItem product={each} handleClick={handleLike} likes={likes} />
+                )}
+              </div>
+            )}
+          </ul>
+        </>
+      )}
       {!loading && !error && query && products.length === 0 && (
         <p>No Quotes found!</p>
       )}
